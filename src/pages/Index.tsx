@@ -62,7 +62,7 @@ const Index = () => {
                 <Wallet className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">Controle Financeiro</h1>
+                <h1 className="text-2xl font-bold">FINZ</h1>
                 <p className="text-sm text-muted-foreground">Gerencie seu dinheiro com facilidade</p>
               </div>
             </div>

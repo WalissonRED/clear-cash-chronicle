@@ -1,12 +1,97 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect } from "react";
+import { Transaction } from "@/types/transaction";
+import { SummaryCards } from "@/components/SummaryCards";
+import { ExpenseChart } from "@/components/ExpenseChart";
+import { TransactionList } from "@/components/TransactionList";
+import { AddTransactionDialog } from "@/components/AddTransactionDialog";
+import { EditTransactionDialog } from "@/components/EditTransactionDialog";
+import { Wallet } from "lucide-react";
+
+const STORAGE_KEY = "finance-tracker-transactions";
 
 const Index = () => {
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      try {
+        setTransactions(JSON.parse(stored));
+      } catch (e) {
+        console.error("Failed to load transactions:", e);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(transactions));
+  }, [transactions]);
+
+  const handleAddTransaction = (transaction: Omit<Transaction, "id">) => {
+    const newTransaction: Transaction = {
+      ...transaction,
+      id: crypto.randomUUID(),
+    };
+    setTransactions((prev) => [newTransaction, ...prev]);
+  };
+
+  const handleDeleteTransaction = (id: string) => {
+    setTransactions((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const handleEditTransaction = (transaction: Transaction) => {
+    setEditingTransaction(transaction);
+    setEditDialogOpen(true);
+  };
+
+  const handleUpdateTransaction = (updatedTransaction: Transaction) => {
+    setTransactions((prev) => prev.map((t) => (t.id === updatedTransaction.id ? updatedTransaction : t)));
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="border-b bg-card">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="rounded-lg bg-primary p-2">
+                <Wallet className="h-6 w-6 text-primary-foreground" />
+              </div>
+              <div>
+                <h1 className="text-2xl font-bold">Finance Tracker</h1>
+                <p className="text-sm text-muted-foreground">Manage your money with ease</p>
+              </div>
+            </div>
+            <AddTransactionDialog onAdd={handleAddTransaction} />
+          </div>
+        </div>
+      </header>
+
+      <main className="container mx-auto px-4 py-8">
+        <div className="space-y-8">
+          <SummaryCards transactions={transactions} />
+
+          <div className="grid gap-8 lg:grid-cols-2">
+            <ExpenseChart transactions={transactions} />
+            <div className="lg:col-span-2">
+              <TransactionList
+                transactions={transactions}
+                onDelete={handleDeleteTransaction}
+                onEdit={handleEditTransaction}
+              />
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <EditTransactionDialog
+        transaction={editingTransaction}
+        open={editDialogOpen}
+        onOpenChange={setEditDialogOpen}
+        onUpdate={handleUpdateTransaction}
+      />
     </div>
   );
 };

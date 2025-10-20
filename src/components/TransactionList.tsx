@@ -31,14 +31,14 @@ export const TransactionList = ({ transactions, onDelete, onEdit }: TransactionL
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("pt-BR", {
       style: "currency",
-      currency: "USD",
+      currency: "BRL",
     }).format(amount);
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
+    return new Date(dateString).toLocaleDateString("pt-BR", {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -48,7 +48,7 @@ export const TransactionList = ({ transactions, onDelete, onEdit }: TransactionL
   const handleDelete = () => {
     if (deleteId) {
       onDelete(deleteId);
-      toast.success("Transaction deleted");
+      toast.success("Transação excluída");
       setDeleteId(null);
     }
   };
@@ -58,22 +58,22 @@ export const TransactionList = ({ transactions, onDelete, onEdit }: TransactionL
       <Card>
         <CardHeader>
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <CardTitle>Transactions</CardTitle>
+            <CardTitle>Transações</CardTitle>
             <Select value={filterType} onValueChange={(value) => setFilterType(value as TransactionType | "all")}>
               <SelectTrigger className="w-[180px]">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="all">All Transactions</SelectItem>
-                <SelectItem value="income">Income Only</SelectItem>
-                <SelectItem value="expense">Expenses Only</SelectItem>
+                <SelectItem value="all">Todas</SelectItem>
+                <SelectItem value="income">Apenas Receitas</SelectItem>
+                <SelectItem value="expense">Apenas Despesas</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </CardHeader>
         <CardContent>
           {filteredTransactions.length === 0 ? (
-            <p className="py-8 text-center text-muted-foreground">No transactions to display</p>
+            <p className="py-8 text-center text-muted-foreground">Nenhuma transação para exibir</p>
           ) : (
             <div className="space-y-3">
               {filteredTransactions.map((transaction) => (
@@ -137,15 +137,15 @@ export const TransactionList = ({ transactions, onDelete, onEdit }: TransactionL
       <AlertDialog open={!!deleteId} onOpenChange={() => setDeleteId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete Transaction</AlertDialogTitle>
+            <AlertDialogTitle>Excluir Transação</AlertDialogTitle>
             <AlertDialogDescription>
-              Are you sure you want to delete this transaction? This action cannot be undone.
+              Tem certeza que deseja excluir esta transação? Esta ação não pode ser desfeita.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogCancel>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground">
-              Delete
+              Excluir
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

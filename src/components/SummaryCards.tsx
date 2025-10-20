@@ -18,9 +18,9 @@ export const SummaryCards = ({ transactions }: SummaryCardsProps) => {
   const balance = totalIncome - totalExpenses;
 
   const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat("en-US", {
+    return new Intl.NumberFormat("pt-BR", {
       style: "currency",
-      currency: "USD",
+      currency: "BRL",
     }).format(amount);
   };
 
@@ -30,7 +30,7 @@ export const SummaryCards = ({ transactions }: SummaryCardsProps) => {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Total Income</p>
+              <p className="text-sm font-medium text-muted-foreground">Receita Total</p>
               <p className="text-2xl font-bold text-success">{formatCurrency(totalIncome)}</p>
             </div>
             <ArrowUpCircle className="h-10 w-10 text-success opacity-80" />
@@ -42,7 +42,7 @@ export const SummaryCards = ({ transactions }: SummaryCardsProps) => {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Total Expenses</p>
+              <p className="text-sm font-medium text-muted-foreground">Despesas Totais</p>
               <p className="text-2xl font-bold text-destructive">{formatCurrency(totalExpenses)}</p>
             </div>
             <ArrowDownCircle className="h-10 w-10 text-destructive opacity-80" />
@@ -54,7 +54,7 @@ export const SummaryCards = ({ transactions }: SummaryCardsProps) => {
         <CardContent className="pt-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-muted-foreground">Balance</p>
+              <p className="text-sm font-medium text-muted-foreground">Saldo</p>
               <p className={`text-2xl font-bold ${balance >= 0 ? "text-success" : "text-destructive"}`}>
                 {formatCurrency(balance)}
               </p>

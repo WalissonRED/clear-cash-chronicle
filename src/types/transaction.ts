@@ -10,23 +10,23 @@ export interface Transaction {
 }
 
 export const INCOME_CATEGORIES = [
-  "Salary",
+  "Salário",
   "Freelance",
-  "Investment",
-  "Business",
-  "Gift",
-  "Other Income",
+  "Investimento",
+  "Negócio",
+  "Presente",
+  "Outra Receita",
 ];
 
 export const EXPENSE_CATEGORIES = [
-  "Groceries",
-  "Rent",
-  "Utilities",
-  "Transportation",
-  "Entertainment",
-  "Healthcare",
-  "Shopping",
-  "Dining",
-  "Education",
-  "Other Expense",
+  "Supermercado",
+  "Aluguel",
+  "Contas",
+  "Transporte",
+  "Entretenimento",
+  "Saúde",
+  "Compras",
+  "Restaurante",
+  "Educação",
+  "Outra Despesa",
 ];

@@ -31,10 +31,10 @@ export const ExpenseChart = ({ transactions }: ExpenseChartProps) => {
     return (
       <Card>
         <CardHeader>
-          <CardTitle>Expenses by Category</CardTitle>
+          <CardTitle>Despesas por Categoria</CardTitle>
         </CardHeader>
         <CardContent className="flex h-[300px] items-center justify-center">
-          <p className="text-muted-foreground">No expense data to display</p>
+          <p className="text-muted-foreground">Nenhuma despesa para exibir</p>
         </CardContent>
       </Card>
     );
@@ -43,7 +43,7 @@ export const ExpenseChart = ({ transactions }: ExpenseChartProps) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Expenses by Category</CardTitle>
+        <CardTitle>Despesas por Categoria</CardTitle>
       </CardHeader>
       <CardContent>
         <ResponsiveContainer width="100%" height={300}>
@@ -64,9 +64,9 @@ export const ExpenseChart = ({ transactions }: ExpenseChartProps) => {
             </Pie>
             <Tooltip
               formatter={(value: number) =>
-                new Intl.NumberFormat("en-US", {
+                new Intl.NumberFormat("pt-BR", {
                   style: "currency",
-                  currency: "USD",
+                  currency: "BRL",
                 }).format(value)
               }
             />

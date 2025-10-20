@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Transaction } from "@/types/transaction";
 import { SummaryCards } from "@/components/SummaryCards";
 import { ExpenseChart } from "@/components/ExpenseChart";
+import { TrendChart } from "@/components/TrendChart";
+import { FinancialAlerts } from "@/components/FinancialAlerts";
 import { TransactionList } from "@/components/TransactionList";
 import { AddTransactionDialog } from "@/components/AddTransactionDialog";
 import { EditTransactionDialog } from "@/components/EditTransactionDialog";
@@ -60,8 +62,8 @@ const Index = () => {
                 <Wallet className="h-6 w-6 text-primary-foreground" />
               </div>
               <div>
-                <h1 className="text-2xl font-bold">Finance Tracker</h1>
-                <p className="text-sm text-muted-foreground">Manage your money with ease</p>
+                <h1 className="text-2xl font-bold">Controle Financeiro</h1>
+                <p className="text-sm text-muted-foreground">Gerencie seu dinheiro com facilidade</p>
               </div>
             </div>
             <AddTransactionDialog onAdd={handleAddTransaction} />
@@ -73,16 +75,18 @@ const Index = () => {
         <div className="space-y-8">
           <SummaryCards transactions={transactions} />
 
+          <FinancialAlerts transactions={transactions} />
+
           <div className="grid gap-8 lg:grid-cols-2">
             <ExpenseChart transactions={transactions} />
-            <div className="lg:col-span-2">
-              <TransactionList
-                transactions={transactions}
-                onDelete={handleDeleteTransaction}
-                onEdit={handleEditTransaction}
-              />
-            </div>
+            <TrendChart transactions={transactions} />
           </div>
+
+          <TransactionList
+            transactions={transactions}
+            onDelete={handleDeleteTransaction}
+            onEdit={handleEditTransaction}
+          />
         </div>
       </main>
 

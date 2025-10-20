@@ -27,13 +27,13 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
     e.preventDefault();
 
     if (!category || !amount) {
-      toast.error("Please fill in all required fields");
+      toast.error("Preencha todos os campos obrigatórios");
       return;
     }
 
     const parsedAmount = parseFloat(amount);
     if (isNaN(parsedAmount) || parsedAmount <= 0) {
-      toast.error("Please enter a valid amount");
+      toast.error("Insira um valor válido");
       return;
     }
 
@@ -45,7 +45,7 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
       description: description.trim() || undefined,
     });
 
-    toast.success("Transaction added successfully");
+    toast.success("Transação adicionada com sucesso");
     setOpen(false);
     resetForm();
   };
@@ -63,32 +63,32 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
       <DialogTrigger asChild>
         <Button className="gap-2">
           <Plus className="h-4 w-4" />
-          Add Transaction
+          Adicionar Transação
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Transaction</DialogTitle>
+          <DialogTitle>Adicionar Nova Transação</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="type">Type</Label>
+            <Label htmlFor="type">Tipo</Label>
             <Select value={type} onValueChange={(value) => setType(value as TransactionType)}>
               <SelectTrigger id="type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="income">Income</SelectItem>
-                <SelectItem value="expense">Expense</SelectItem>
+                <SelectItem value="income">Receita</SelectItem>
+                <SelectItem value="expense">Despesa</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="category">Category</Label>
+            <Label htmlFor="category">Categoria</Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger id="category">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder="Selecione a categoria" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((cat) => (
@@ -101,12 +101,12 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="amount">Amount</Label>
+            <Label htmlFor="amount">Valor</Label>
             <Input
               id="amount"
               type="number"
               step="0.01"
-              placeholder="0.00"
+              placeholder="0,00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               required
@@ -114,7 +114,7 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="date">Date</Label>
+            <Label htmlFor="date">Data</Label>
             <Input
               id="date"
               type="date"
@@ -125,10 +125,10 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description">Descrição (Opcional)</Label>
             <Textarea
               id="description"
-              placeholder="Add notes about this transaction"
+              placeholder="Adicione observações sobre esta transação"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
@@ -137,10 +137,10 @@ export const AddTransactionDialog = ({ onAdd }: AddTransactionDialogProps) => {
 
           <div className="flex gap-2 pt-4">
             <Button type="button" variant="outline" onClick={() => setOpen(false)} className="flex-1">
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" className="flex-1">
-              Add Transaction
+              Adicionar
             </Button>
           </div>
         </form>

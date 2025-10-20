@@ -43,13 +43,13 @@ export const EditTransactionDialog = ({
     e.preventDefault();
 
     if (!transaction || !category || !amount) {
-      toast.error("Please fill in all required fields");
+      toast.error("Preencha todos os campos obrigatórios");
       return;
     }
 
     const parsedAmount = parseFloat(amount);
     if (isNaN(parsedAmount) || parsedAmount <= 0) {
-      toast.error("Please enter a valid amount");
+      toast.error("Insira um valor válido");
       return;
     }
 
@@ -62,7 +62,7 @@ export const EditTransactionDialog = ({
       description: description.trim() || undefined,
     });
 
-    toast.success("Transaction updated successfully");
+    toast.success("Transação atualizada com sucesso");
     onOpenChange(false);
   };
 
@@ -72,27 +72,27 @@ export const EditTransactionDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Edit Transaction</DialogTitle>
+          <DialogTitle>Editar Transação</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="edit-type">Type</Label>
+            <Label htmlFor="edit-type">Tipo</Label>
             <Select value={type} onValueChange={(value) => setType(value as TransactionType)}>
               <SelectTrigger id="edit-type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="income">Income</SelectItem>
-                <SelectItem value="expense">Expense</SelectItem>
+                <SelectItem value="income">Receita</SelectItem>
+                <SelectItem value="expense">Despesa</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-category">Category</Label>
+            <Label htmlFor="edit-category">Categoria</Label>
             <Select value={category} onValueChange={setCategory}>
               <SelectTrigger id="edit-category">
-                <SelectValue placeholder="Select category" />
+                <SelectValue placeholder="Selecione a categoria" />
               </SelectTrigger>
               <SelectContent>
                 {categories.map((cat) => (
@@ -105,12 +105,12 @@ export const EditTransactionDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-amount">Amount</Label>
+            <Label htmlFor="edit-amount">Valor</Label>
             <Input
               id="edit-amount"
               type="number"
               step="0.01"
-              placeholder="0.00"
+              placeholder="0,00"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
               required
@@ -118,7 +118,7 @@ export const EditTransactionDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-date">Date</Label>
+            <Label htmlFor="edit-date">Data</Label>
             <Input
               id="edit-date"
               type="date"
@@ -129,10 +129,10 @@ export const EditTransactionDialog = ({
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="edit-description">Description (Optional)</Label>
+            <Label htmlFor="edit-description">Descrição (Opcional)</Label>
             <Textarea
               id="edit-description"
-              placeholder="Add notes about this transaction"
+              placeholder="Adicione observações sobre esta transação"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={3}
@@ -141,10 +141,10 @@ export const EditTransactionDialog = ({
 
           <div className="flex gap-2 pt-4">
             <Button type="button" variant="outline" onClick={() => onOpenChange(false)} className="flex-1">
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" className="flex-1">
-              Update
+              Atualizar
             </Button>
           </div>
         </form>
